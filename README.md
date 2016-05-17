@@ -26,3 +26,9 @@
 3. 初始化Union
 
 		union.init();
+
+
+参考
+-----
+
+CcChongDriver.java

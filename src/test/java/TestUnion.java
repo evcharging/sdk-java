@@ -28,42 +28,7 @@ public class TestUnion {
         System.out.println(appId);
         System.out.println(appSecret);
     }
-    static class TestDriver implements UnionDriver {
 
-        @Override
-        public void init(Union union) {
-        }
-
-        @Override
-        public Station[] getStations(int code, int page, int pageSize) {
-            return new Station[0];
-        }
-
-        @Override
-        public Pile[] getPiles(String outId) {
-            return new Pile[0];
-        }
-
-        @Override
-        public void startCharging(String outId, long orderId) throws UnionException {
-
-        }
-
-        @Override
-        public Charge stopCharging(String outId) throws UnionException {
-            return null;
-        }
-
-        @Override
-        public Charge getCharging(String outId) throws UnionException {
-            return null;
-        }
-
-        @Override
-        public void onChargeChange(Charge charge) {
-
-        }
-    }
 
     @Before
     public void setUp() {
@@ -244,6 +209,14 @@ public class TestUnion {
           charge = u.getCharging(id);
           System.out.println(charge.toJson().toString());
           Thread.sleep(5000);
+        } catch (Exception ue) {
+            ue.printStackTrace();
+        }
+        try {
+            // (4.x) 用外部订单编号查询充电状态
+            charge = u.getCharging(outOrderId);
+            System.out.println(charge.toJson().toString());
+            Thread.sleep(5000);
         } catch (Exception ue) {
             ue.printStackTrace();
         }

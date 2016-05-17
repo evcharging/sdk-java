@@ -259,7 +259,8 @@ public class Union implements WebSocketTextListener {
 
     public void close() {
         unionDriver = null;
-        websocket.close();
+        if (websocket != null)
+            websocket.close();
     }
 
     /**
@@ -398,6 +399,16 @@ public class Union implements WebSocketTextListener {
         return new Charge(json.getJSONObject());
     }
 
+    /**
+     * 获取充电过程详情
+     * @param outOrderId 本地订单编号
+     * @return 充电过程详情
+     * @throws UnionException
+     */
+    public Charge getCharging(String outOrderId) throws UnionException {
+        JSON json = getJSON(asyncHttpClient.prepareGet(httpUrl + "/orders/@" + outOrderId));
+        return new Charge(json.getJSONObject());
+    }
     /**
      * 停止充电
      * @param id 充电桩编号
